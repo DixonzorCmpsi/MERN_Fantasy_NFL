@@ -1,0 +1,4 @@
+//  "dev": "cross-env NODE_ENV=development BackEnd/server.js",
+//     "build": "npm install && npm install --prefix FrontEnd && npm run build --prefix FrontEnd",
+//     "start": "cross-env NODE_ENV=production node BackEnd/server.js"
+//   },
