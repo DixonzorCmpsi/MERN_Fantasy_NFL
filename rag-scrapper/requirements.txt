@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+beautifulsoup4
+sentence-transformers==2.7.0
+faiss-cpu           # change to faiss-gpu if you have CUDA
+openai              # talks to Ollama because Ollama mimics OpenAI API
+cloudscraper
+lxml
+python-dotenv
+tqdm
+httpx
+nest_asyncio
