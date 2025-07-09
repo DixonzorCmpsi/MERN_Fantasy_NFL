@@ -10,3 +10,4 @@ python-dotenv
 tqdm
 httpx
 nest_asyncio
+requests

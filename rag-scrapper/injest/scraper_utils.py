@@ -17,7 +17,7 @@ from sentence_transformers import SentenceTransformer
 INDEX_DIR = Path("data/db")          # data/db/faiss.index + meta.json
 INDEX_DIR.mkdir(parents=True, exist_ok=True)
 
-SLEEP = 0.25                         # politeness delay (s); lower if you dare
+SLEEP = 0.25                         # politeness delay (s); 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0"
 
 scraper = cloudscraper.create_scraper(delay=10, browser="chrome")
@@ -96,7 +96,7 @@ for letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
         page += 1
 
 # ───────────────── batch embeddings & save ────────────────
-print("\n🔄  Embedding texts …")
+print("\n  Embedding texts …")
 for i in range(0, len(texts), 64):
     vecs = embedder.encode(texts[i : i + 64], normalize_embeddings=True)
     index.add(vecs)

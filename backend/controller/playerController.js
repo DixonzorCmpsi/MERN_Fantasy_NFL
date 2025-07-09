@@ -1,4 +1,4 @@
-import { scrapeStatMusePlayer } from '../utils/statmuseScraper.js';
+import { scrapeFootballDbPlayer } from '../utils/footballDbScraper.js';
 import { Team } from '../models/team.js';
 
 export const getPlayerInfo = async (req, res) => {
@@ -19,22 +19,25 @@ export const getPlayerInfo = async (req, res) => {
 export const addPlayerToTeam = async (req, res) => {
   const userId = req.user.id;
   const { name } = req.body;
+  if (!name) return res.status(400).json({ message: 'Player name required' });
 
   try {
-    const playerData = await scrapePlayerData(name);
+    const scraped = await scrapeFootballDbPlayer(name);
 
     let team = await Team.findOne({ user: userId });
+    if (!team) team = new Team({ user: userId });
 
-    if (!team) {
-      team = new Team({ user: userId, players: [playerData] });
-    } else {
-      if (team.players.length >= 16) return res.status(400).json({ message: 'Team is full' });
-      team.players.push(playerData);
-    }
+    if (team.players.length >= 16)
+      return res.status(400).json({ message: 'Team is full (16)' });
 
+    if (team.players.some(p => p.slug === scraped.slug))
+      return res.status(409).json({ message: 'Player already on roster' });
+
+    team.players.push(scraped);
     await team.save();
     res.json({ success: true, team });
   } catch (err) {
-    res.status(500).json({ success: false, message: 'Could not add player' });
+    console.error(err);
+    res.status(500).json({ message: 'Could not add player' });
   }
 };
