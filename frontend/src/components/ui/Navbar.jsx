@@ -41,7 +41,7 @@ function Navbar() {
         {/* Nav Links */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           <Button component={Link} to="/team" color="inherit">Team</Button>
-          <Button component={Link} to="/about" color="inherit">Tools</Button>
+          <Button component={Link} to="/tools" color="inherit">Tools</Button>
           <Button component={Link} to="/contact" color="inherit">Contact</Button>
 
           {user ? (
